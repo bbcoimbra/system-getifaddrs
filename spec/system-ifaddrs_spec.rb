@@ -1,7 +1,23 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "SystemIfaddrs" do
-  it "fails" do
-    fail "hey buddy, you should probably rename this file and start specing for real"
-  end
+def get_ifs_conf
+
+    ifs = `/sbin/ifconfig`
+    ifs = ifs.split("\n\n")
+    ifs.map!{|e| e.split("\n")}
+    ifs.each do |elem|
+        elem.map! do |e|
+            e.squeeze(" ").strip
+        end
+    end
+    ifs
+
+
+end
+
+
+describe SystemIfaddrs do
+
+
+
 end
