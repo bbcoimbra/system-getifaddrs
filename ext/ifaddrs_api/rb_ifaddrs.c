@@ -9,7 +9,7 @@ VALUE rb_get_ifaddrs(void)
 
     if (getifaddrs(&ifaddr) == -1)
     {
-    /* Put validations here -> raise someting if error occur here */
+        rb_raise(rb_eSystemCallError, "Can't get info about interfaces");
     }
     rb_if_hash = rb_hash_new();
     for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next)
@@ -31,14 +31,14 @@ VALUE rb_get_ifaddrs(void)
                             NULL, 0, NI_NUMERICHOST);
             if (s != 0)
             {
-            /* Put validations here -> raise sometingh if error occur here */
+                rb_raise(rb_eSystemCallError, "Can't get IP from %s", if_name);
             }
             s = getnameinfo(ifa->ifa_netmask, sizeof(struct sockaddr_in),
                             netmask, NI_MAXHOST,
                             NULL, 0, NI_NUMERICHOST);
             if (s != 0)
             {
-            /* Put validations here -> raise sometingh if error occur here */
+                rb_raise(rb_eSystemCallError, "Can't get netmask from %s", if_name);
             }
             rb_if_data_hash = rb_hash_new();
             rb_hash_aset(rb_if_hash,
