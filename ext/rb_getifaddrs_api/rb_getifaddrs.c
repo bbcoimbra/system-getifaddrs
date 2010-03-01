@@ -1,4 +1,4 @@
-#include "rb_ifaddrs.h"
+#include "rb_getifaddrs.h"
 
 VALUE rb_get_ifaddrs(void)
 {
@@ -57,7 +57,7 @@ VALUE rb_get_ifaddrs(void)
 }
 
 VALUE mSystem;
-void Init_ifaddrs_api(){
+void Init_rb_getifaddrs(){
     mSystem = rb_define_module("System");
     rb_define_module_function(mSystem, "get_ifaddrs", rb_get_ifaddrs, 0);
 }
