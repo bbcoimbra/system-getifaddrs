@@ -20,7 +20,13 @@ def get_interfaces_from_ifconfig
             temp_hash = {}
             ary.each do |elem|
                 k, v = elem.split(':')
-                temp_hash[k.downcase.to_sym] = v
+                case k
+                when 'Mask'
+                    k = 'netmask'
+                when 'Bcast'
+                    k = 'broadcast'
+                end
+                temp_hash[k.to_sym] = v
             end
             interfaces[key] = temp_hash
         end
@@ -31,22 +37,24 @@ end
 
 describe System do
 
-    context "ifadds" do
+    context "getifaddrs" do
         before :all do
-            @interfaces = get_interfaces_from_ifconfig
+            @ifconfig_interfaces = get_interfaces_from_ifconfig
+            @get_ifaddrs_interfaces = System.get_ifaddrs
         end
 
         it 'should return a hash' do
-            System.get_ifaddrs.should be_kind_of(Hash)
+            @get_ifaddrs_interfaces.should be_kind_of(Hash)
         end
 
         it 'should have same number of interfaces than system' do
-            System.get_ifaddrs.should have_at_least(@interfaces).elements
+            @get_ifaddrs_interfaces.keys.size.should have_at_least(@ifconfig_interfaces.keys.size).elements
         end
 
         it 'should have same interfaces than system' do
-            pending
-            System.get_ifaddrs.keys.sort.should == @interfaces.keys.sort
+            @ifconfig_interfaces.keys.each do |k|
+                @get_ifaddrs_interfaces.should include(k)
+            end
         end
     end
 end
