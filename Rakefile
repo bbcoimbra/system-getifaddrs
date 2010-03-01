@@ -30,7 +30,7 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
-task :spec => :check_dependencies
+task :spec => [:check_dependencies, :build_ext]
 
 task :default => :spec
 
@@ -46,4 +46,19 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "system-ifaddrs #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+
+task :clean_ext_objects do
+  for ext in %w(rb_getifaddrs) do
+    rm "lib/#{ext}.so"
+    sh "( cd ext/#{ext}_api && make distclean )"
+  end
+end
+
+task :build_ext do
+  for ext in %w(rb_getifaddrs) do
+    sh "( cd ext/#{ext}_api && ruby extconf.rb && make )"
+    cp "ext/#{ext}_api/#{ext}.so", 'lib/'
+  end
 end
