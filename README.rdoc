@@ -9,35 +9,29 @@ This lib walks on list and return an hash that contains the interface names and 
 
 Supose that /sbin/ifconfig returns:
 
-<pre>
-lo        Link encap:Local Loopback
-          inet addr:127.0.0.1  Mask:255.0.0.0
-          inet6 addr: ::1/128 Scope:Host
-          UP LOOPBACK RUNNING  MTU:16436  Metric:1
-          RX packets:86688 errors:0 dropped:0 overruns:0 frame:0
-          TX packets:86688 errors:0 dropped:0 overruns:0 carrier:0
-          collisions:0 txqueuelen:0 
-          RX bytes:10903658 (10.3 MiB)  TX bytes:10903658 (10.3 MiB)
-</pre>
+  lo  Link encap:Local Loopback
+      inet addr:127.0.0.1  Mask:255.0.0.0
+      inet6 addr: ::1/128 Scope:Host
+      UP LOOPBACK RUNNING  MTU:16436  Metric:1
+      RX packets:86688 errors:0 dropped:0 overruns:0 frame:0
+      TX packets:86688 errors:0 dropped:0 overruns:0 carrier:0
+      collisions:0 txqueuelen:0 
+      RX bytes:10903658 (10.3 MiB)  TX bytes:10903658 (10.3 MiB)
 
 Consider test.rb below:
 
-<pre>
-# test.rb
-require "pp"
-require "system/getifaddrs"
-pp System.get_ifaddrs
-</pre>
+  # test.rb
+  require "pp"
+  require "system/getifaddrs"
+  pp System.get_ifaddrs
 
 When test.rb is executed:
-<pre>
-$ ruby test.rb
-</pre>
+
+  $ ruby test.rb
 
 Should return:
-<pre>
-{:lo=>{:inet_addr=>"127.0.0.1", :netmask=>"255.0.0.0"}}
-</pre>
+
+  {:lo=>{:inet_addr=>"127.0.0.1", :netmask=>"255.0.0.0"}}
 
 
 == Copyright
