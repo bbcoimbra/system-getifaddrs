@@ -4,11 +4,11 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "system-ifaddrs"
+    gem.name = "system-getifaddrs"
     gem.summary = %Q{This lib is a wrapper for get_ifaddrs C routine}
     gem.description = %Q{This lib is a wrapper for get_ifaddrs C routine. The original routine returns a linked list that contains avaliable inet interfaces. This lib walks on list and return an hash that contains the interface names and sub-hashes with respectives ip addresses and netmasks.}
     gem.email = "bbcoimbra@gmail.com"
-    gem.homepage = "http://github.com/bbcoimbra/system-ifaddrs"
+    gem.homepage = "http://github.com/bbcoimbra/system-getifaddrs"
     gem.authors = ["Bruno Coimbra"]
     gem.add_development_dependency "rspec"
     gem.extensions << 'ext/rb_getifaddrs_api/extconf.rb'
