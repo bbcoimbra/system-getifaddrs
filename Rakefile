@@ -5,13 +5,13 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "system-ifaddrs"
-    gem.summary = %Q{This lib implements get_ifaddrs C routine}
-    gem.description = %Q{This lib implements get_ifaddrs C routine}
+    gem.summary = %Q{This lib is a wrapper for get_ifaddrs C routine}
+    gem.description = %Q{This lib is a wrapper for get_ifaddrs C routine. The original routine returns a linked list that contains avaliable inet interfaces. This lib walks on list and return an hash that contains the interface names and sub-hashes with respectives ip addresses and netmasks.}
     gem.email = "bbcoimbra@gmail.com"
     gem.homepage = "http://github.com/bbcoimbra/system-ifaddrs"
     gem.authors = ["Bruno Coimbra"]
     gem.add_development_dependency "rspec"
-    gem.extensions << 'ext/ifaddrs_api/extconf.rb'
+    gem.extensions << 'ext/rb_getifaddrs_api/extconf.rb'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
