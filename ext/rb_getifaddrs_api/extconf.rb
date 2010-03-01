@@ -1,6 +1,6 @@
 require 'mkmf'
 
-dir_config "ifaddrs_api"
+dir_config "rb_getifaddrs_api"
 
 $CFLAGS = "-D_GNU_SOURCE -Wall"
 
@@ -13,4 +13,4 @@ have_header('stdio.h')
 have_header('stdlib.h')
 have_header('unistd.h')
 
-create_makefile("ifaddrs_api")
+create_makefile("rb_getifaddrs")
