@@ -6,6 +6,10 @@ int get_if_family(struct ifaddrs *ifa){
 	return 0;
 }
 
+char * get_if_name(struct ifaddrs *ifa){
+	return ifa->ifa_name;
+}
+
 VALUE rb_get_ifaddrs(void)
 {
     struct ifaddrs *ifaddr, *ifa;
@@ -31,7 +35,8 @@ VALUE rb_get_ifaddrs(void)
             char *if_name;
             int s;
 
-            if_name = ifa->ifa_name;
+            if_name = get_if_name(ifa);
+
             s = getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in),
                             host, NI_MAXHOST,
                             NULL, 0, NI_NUMERICHOST);
