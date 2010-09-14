@@ -53,11 +53,7 @@ VALUE rb_get_ifaddrs(void)
         family = get_if_family(ifa);
         if (family == AF_INET)
         {
-            VALUE rb_if_data_hash;
-            char host[NI_MAXHOST];
-            char netmask[NI_MAXHOST];
-            char *if_name;
-            int s;
+            char *if_host, *if_netmask, *if_name;
 
             if_name = get_if_name(ifa);
 						if_host = malloc(sizeof(char) * NI_MAXHOST);
