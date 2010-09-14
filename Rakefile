@@ -10,6 +10,7 @@ begin
     gem.email = "bbcoimbra@gmail.com"
     gem.homepage = "http://github.com/bbcoimbra/system-getifaddrs"
     gem.authors = ["Bruno Coimbra"]
+    gem.add_development_dependency "jeweler"
     gem.add_development_dependency "rspec"
     gem.add_development_dependency "rake-compiler"
     gem.extensions << 'ext/rb_getifaddrs/extconf.rb'
