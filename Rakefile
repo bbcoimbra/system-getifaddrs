@@ -11,6 +11,7 @@ begin
     gem.homepage = "http://github.com/bbcoimbra/system-getifaddrs"
     gem.authors = ["Bruno Coimbra"]
     gem.add_development_dependency "rspec"
+    gem.add_development_dependency "rake-compiler"
     gem.extensions << 'ext/rb_getifaddrs/extconf.rb'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -30,10 +31,6 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
-task :spec => [:check_dependencies, :build_ext]
-
-task :default => :spec
-
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
   if File.exist?('VERSION')
@@ -48,17 +45,5 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-
-task :clean_ext_objects do
-  for ext in %w(rb_getifaddrs) do
-    rm "lib/#{ext}.so"
-    sh "( cd ext/#{ext}_api && make distclean )"
-  end
-end
-
-task :build_ext do
-  for ext in %w(rb_getifaddrs) do
-    sh "( cd ext/#{ext}_api && ruby extconf.rb && make )"
-    cp "ext/#{ext}_api/#{ext}.so", 'lib/'
-  end
-end
+require 'rake/extensiontask'
+Rake::ExtensionTask.new('rb_getifaddrs')
