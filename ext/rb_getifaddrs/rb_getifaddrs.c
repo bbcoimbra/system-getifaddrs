@@ -1,6 +1,6 @@
 #include "rb_getifaddrs.h"
 
-int get_family(struct ifaddrs *ifa){
+int get_if_family(struct ifaddrs *ifa){
 	if(ifa && ifa->ifa_addr)
 		return ifa->ifa_addr->sa_family;
 	return 0;
@@ -22,7 +22,7 @@ VALUE rb_get_ifaddrs(void)
     {
         int family;
 
-        family = get_family(ifa);
+        family = get_if_family(ifa);
         if (family == AF_INET)
         {
             VALUE rb_if_data_hash;
