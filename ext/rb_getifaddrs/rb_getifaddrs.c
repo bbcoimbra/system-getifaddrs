@@ -1,4 +1,12 @@
-#include "rb_getifaddrs.h"
+#include "ruby.h"
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netdb.h>
+#include <ifaddrs.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 int get_if_family(struct ifaddrs *ifa){
 	if(ifa && ifa->ifa_addr)
