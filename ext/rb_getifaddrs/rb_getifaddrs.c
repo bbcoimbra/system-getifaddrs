@@ -34,11 +34,28 @@ int get_if_netmask(struct ifaddrs *ifa, char *netmask){
 	return 1;
 }
 
+VALUE set_if_hash(VALUE rb_if_hash, char *if_name, char *if_host, char *if_netmask){
+
+	VALUE rb_if_data_hash;
+	char *str_inet_name = "inet_addr";
+	char *str_netmask_name = "netmask";
+
+	rb_if_data_hash = rb_hash_new();
+	rb_hash_aset(rb_if_hash,
+			rb_str_intern(rb_str_new2(if_name)),
+			rb_if_data_hash);
+	rb_hash_aset(rb_if_data_hash,
+			rb_str_intern(rb_str_new2(str_inet_name)),
+			rb_str_new2(if_host));
+	rb_hash_aset(rb_if_data_hash,
+			rb_str_intern(rb_str_new2(str_netmask_name)),
+			rb_str_new2(if_netmask));
+	return rb_if_data_hash;
+}
+
 VALUE rb_get_ifaddrs(void)
 {
     struct ifaddrs *ifaddr, *ifa;
-    char *str_inet_name = "inet_addr";
-    char *str_netmask_name = "netmask";
     VALUE rb_if_hash;
 
     if (getifaddrs(&ifaddr) == -1)
@@ -65,16 +82,6 @@ VALUE rb_get_ifaddrs(void)
 							rb_raise(rb_eSystemCallError, "Can't get IP from %s", if_name);
 
 						set_if_hash(rb_if_hash, if_name, if_host, if_netmask);
-            rb_if_data_hash = rb_hash_new();
-            rb_hash_aset(rb_if_hash,
-                         rb_str_intern(rb_str_new2(if_name)),
-                         rb_if_data_hash);
-            rb_hash_aset(rb_if_data_hash,
-                         rb_str_intern(rb_str_new2(str_inet_name)),
-                         rb_str_new2(host));
-            rb_hash_aset(rb_if_data_hash,
-                         rb_str_intern(rb_str_new2(str_netmask_name)),
-                         rb_str_new2(netmask));
         }
     }
     freeifaddrs(ifaddr);
