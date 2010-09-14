@@ -18,6 +18,14 @@ char * get_if_name(struct ifaddrs *ifa){
 	return ifa->ifa_name;
 }
 
+int get_if_host(struct ifaddrs *ifa, char *host){
+	if(getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in),
+			host, NI_MAXHOST,
+			NULL, 0, NI_NUMERICHOST))
+		return 0;
+	return 1;
+}
+
 VALUE rb_get_ifaddrs(void)
 {
     struct ifaddrs *ifaddr, *ifa;
@@ -44,14 +52,10 @@ VALUE rb_get_ifaddrs(void)
             int s;
 
             if_name = get_if_name(ifa);
+						if_host = malloc(sizeof(char) * NI_MAXHOST);
+						if (! get_if_host(ifa, if_host))
+							rb_raise(rb_eSystemCallError, "Can't get IP from %s", if_name);
 
-            s = getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in),
-                            host, NI_MAXHOST,
-                            NULL, 0, NI_NUMERICHOST);
-            if (s != 0)
-            {
-                rb_raise(rb_eSystemCallError, "Can't get IP from %s", if_name);
-            }
             s = getnameinfo(ifa->ifa_netmask, sizeof(struct sockaddr_in),
                             netmask, NI_MAXHOST,
                             NULL, 0, NI_NUMERICHOST);
