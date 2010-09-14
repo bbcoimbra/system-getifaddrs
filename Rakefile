@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/bbcoimbra/system-getifaddrs"
     gem.authors = ["Bruno Coimbra"]
     gem.add_development_dependency "rspec"
-    gem.extensions << 'ext/rb_getifaddrs_api/extconf.rb'
+    gem.extensions << 'ext/rb_getifaddrs/extconf.rb'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
