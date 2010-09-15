@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{system-getifaddrs}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bruno Coimbra"]
@@ -28,9 +28,11 @@ Gem::Specification.new do |s|
      "VERSION",
      "ext/rb_getifaddrs/extconf.rb",
      "ext/rb_getifaddrs/rb_getifaddrs.c",
+     "lib/system/.gitignore",
      "lib/system/getifaddrs.rb",
      "spec/spec_helper.rb",
-     "spec/system-ifaddrs_spec.rb"
+     "spec/system-ifaddrs_spec.rb",
+     "system-getifaddrs.gemspec"
   ]
   s.homepage = %q{http://github.com/bbcoimbra/system-getifaddrs}
   s.rdoc_options = ["--charset=UTF-8"]
