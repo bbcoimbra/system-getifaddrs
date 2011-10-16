@@ -6,3 +6,5 @@ Spec::Rake::SpecTask.new
 
 require 'rake/extensiontask'
 Rake::ExtensionTask.new('rb_getifaddrs')
+
+task :default => [:compile, :spec]
