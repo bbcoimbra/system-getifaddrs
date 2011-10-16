@@ -1,6 +1,6 @@
-# system-ifaddrs
+# system-ifaddrs !(https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png)[https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png]
 
-This lib is a wrapper for get_ifaddrs C routine.
+This lib is a wrapper for get\_ifaddrs C routine.
 
 The original routine returns a linked list that contains avaliable inet interfaces.
 This lib walks on list and return an hash that contains the interface names and sub-hashes with respectives ip addresses and netmasks.
