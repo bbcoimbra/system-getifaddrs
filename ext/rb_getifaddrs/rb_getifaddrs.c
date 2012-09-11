@@ -27,7 +27,7 @@ int get_if_host(struct ifaddrs *ifa, char *host){
 }
 
 int get_if_netmask(struct ifaddrs *ifa, char *netmask){
-	if(getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in),
+	if(getnameinfo(ifa->ifa_netmask, sizeof(struct sockaddr_in),
 			netmask, NI_MAXHOST,
 			NULL, 0, NI_NUMERICHOST))
 		return 0;
