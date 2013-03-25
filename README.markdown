@@ -1,4 +1,4 @@
-# system-ifaddrs ![https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png](https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png)
+# system-ifaddrs ![https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png](https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png) [![Code Climate](https://codeclimate.com/github/bbcoimbra/system-getifaddrs.png)](https://codeclimate.com/github/bbcoimbra/system-getifaddrs)
 
 This lib is a wrapper for get\_ifaddrs C routine.
 
