@@ -1,3 +1,4 @@
+require 'ipaddr'
 begin
   require File.join(File.dirname(__FILE__), 'rb_getifaddrs')
 rescue LoadError
@@ -7,7 +8,9 @@ end
 module System
   def self.get_ifaddrs
     get_all_ifaddrs.each_with_object({}) do |data, hash|
-      hash[data[:interface].to_sym] = {inet_addr: data[:inet_addr], netmask: data[:netmask]}
+      if data[:inet_addr].ipv4?
+        hash[data[:interface].to_sym] = {inet_addr: data[:inet_addr].to_s, netmask: data[:netmask].to_s}
+      end
     end
   end
 end

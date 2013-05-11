@@ -14,47 +14,34 @@ int get_if_family(struct ifaddrs *ifa){
 	return 0;
 }
 
-char * get_if_name(struct ifaddrs *ifa){
-	return ifa->ifa_name;
-}
+VALUE ipaddr(struct sockaddr *ip) {
+    VALUE bytes;
 
-int get_if_host(struct ifaddrs *ifa, char *host){
-	if(getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in),
-			host, NI_MAXHOST,
-			NULL, 0, NI_NUMERICHOST))
-		return 0;
-	return 1;
-}
+    switch(ip->sa_family) {
+    case AF_INET:
+        bytes = rb_str_new(&((struct sockaddr_in *)ip)->sin_addr.s_addr, 4);
+        break;
 
-int get_if_netmask(struct ifaddrs *ifa, char *netmask){
-	if(getnameinfo(ifa->ifa_netmask, sizeof(struct sockaddr_in),
-			netmask, NI_MAXHOST,
-			NULL, 0, NI_NUMERICHOST))
-		return 0;
-	return 1;
+    case AF_INET6:
+        bytes = rb_str_new(&((struct sockaddr_in6 *)ip)->sin6_addr.s6_addr, 16);
+        break;
+
+    default:
+        rb_raise(rb_eSystemCallError, "Unhandled IP family.");
+
+    }
+
+    VALUE ipaddr = rb_const_get(rb_cObject, rb_intern("IPAddr"));
+    return rb_funcall(ipaddr, rb_intern("new_ntoh"), 1, bytes);
 }
 
 VALUE if_hash(struct ifaddrs *ifa)
 {
     VALUE hash = rb_hash_new();
 
-    char *if_host, *if_netmask, *if_name;
-
-    if_name = get_if_name(ifa);
-    if_host = malloc(sizeof(char) * NI_MAXHOST);
-    if_netmask = malloc(sizeof(char) * NI_MAXHOST);
-
-    rb_hash_aset(hash, ID2SYM(rb_intern("interface")), rb_str_new2(if_name));
-
-    if (get_if_host(ifa, if_host))
-       rb_hash_aset(hash, ID2SYM(rb_intern("inet_addr")), rb_str_new2(if_host));
-    else
-       rb_raise(rb_eSystemCallError, "Can't get IP from %s", if_name);
-
-    if (get_if_netmask(ifa, if_netmask))
-       rb_hash_aset(hash, ID2SYM(rb_intern("netmask")), rb_str_new2(if_netmask));
-    else
-       rb_raise(rb_eSystemCallError, "Can't get netmask from %s", if_name);
+    rb_hash_aset(hash, ID2SYM(rb_intern("interface")), rb_str_new2(ifa->ifa_name));
+    rb_hash_aset(hash, ID2SYM(rb_intern("inet_addr")), ipaddr(ifa->ifa_addr));
+    rb_hash_aset(hash, ID2SYM(rb_intern("netmask")), ipaddr(ifa->ifa_netmask));
 
     return hash;
 }
@@ -74,7 +61,7 @@ VALUE rb_get_all_ifaddrs(void)
         int family;
 
         family = get_if_family(ifa);
-        if (family == AF_INET)
+        if (family == AF_INET || family == AF_INET6)
         {
             rb_ary_push(rb_if_arr, if_hash(ifa));
         }
