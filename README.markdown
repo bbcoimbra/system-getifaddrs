@@ -27,6 +27,7 @@ Consider test.rb below:
 require "pp"
 require "system/getifaddrs"
 pp System.get_ifaddrs
+pp System.get_all_ifaddrs
 ```
 
 When test.rb is executed:
@@ -39,6 +40,10 @@ Should return:
 
 ```ruby
 {:lo=>{:inet_addr=>"127.0.0.1", :netmask=>"255.0.0.0"}}
+[{:interface => "lo", :inet_addr => #<IPAddr '127.0.0.1'>,
+    :netmask   => #<IPAddr '255.0.0.0'>},
+ {:interface => "lo", :inet_addr => #<IPAddr '::1'>,
+    :netmask => #<IPAddr 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff'>}]
 ```
 
 ## Copyright
