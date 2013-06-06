@@ -57,4 +57,19 @@ describe System do
             end
         end
     end
+
+    context "get_all_ifaddrs" do
+      before :all do
+        @ifconfig_interfaces = get_interfaces_from_ifconfig
+        @get_ifaddrs_interfaces = System.get_all_ifaddrs
+      end
+
+      it 'should return an array' do
+        @get_ifaddrs_interfaces.should be_kind_of(Array)
+      end
+
+      it 'should have same number of interfaces than system' do
+          @get_ifaddrs_interfaces.size.should have_at_least(@ifconfig_interfaces.keys.size).elements
+      end
+    end
 end
