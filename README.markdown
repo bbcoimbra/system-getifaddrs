@@ -1,4 +1,4 @@
-# system-ifaddrs ![https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png](https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png) [![Code Climate](https://codeclimate.com/github/bbcoimbra/system-getifaddrs.png)](https://codeclimate.com/github/bbcoimbra/system-getifaddrs)
+# system-ifaddrs ![https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png](https://secure.travis-ci.org/bbcoimbra/system-getifaddrs.png) [![Code Climate](https://codeclimate.com/github/bbcoimbra/system-getifaddrs.png)](https://codeclimate.com/github/bbcoimbra/system-getifaddrs)[![Gem Version](https://badge.fury.io/rb/system-getifaddrs.png)](http://badge.fury.io/rb/system-getifaddrs)[![Dependency Status](https://gemnasium.com/bbcoimbra/system-getifaddrs.png)](https://gemnasium.com/bbcoimbra/system-getifaddrs)
 
 This lib is a wrapper for get\_ifaddrs C routine.
 
