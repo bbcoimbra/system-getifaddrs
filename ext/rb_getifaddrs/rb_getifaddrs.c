@@ -18,6 +18,8 @@ VALUE ipaddr(struct sockaddr *ip) {
     VALUE bytes;
 
     switch(ip->sa_family) {
+    // VirtualBox vboxnet interface does not specify family
+    case AF_UNSPEC:
     case AF_INET:
         bytes = rb_str_new(&((struct sockaddr_in *)ip)->sin_addr.s_addr, 4);
         break;
@@ -27,7 +29,7 @@ VALUE ipaddr(struct sockaddr *ip) {
         break;
 
     default:
-        rb_raise(rb_eSystemCallError, "Unhandled IP family.");
+        rb_raise(rb_eSystemCallError, "Unhandled IP family %i.", ip->sa_family);
 
     }
 
