@@ -48,4 +48,4 @@ Should return:
 
 ## Copyright
 
-Copyright (c) 2010-2013 Bruno Coimbra. See LICENSE for details.
+Copyright (c) 2010-2014 Bruno Coimbra. See LICENSE for details.
