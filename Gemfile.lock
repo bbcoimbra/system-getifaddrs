@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    system-getifaddrs (0.2.0)
+    system-getifaddrs (0.2.1)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     rake (10.0.4)
     rake-compiler (0.8.3)
