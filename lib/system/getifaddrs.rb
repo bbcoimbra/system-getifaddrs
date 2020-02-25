@@ -1,9 +1,5 @@
 require 'ipaddr'
-begin
-  require File.join(File.dirname(__FILE__), 'rb_getifaddrs')
-rescue LoadError
-  require File.join(File.dirname(__FILE__), '..', 'rb_getifaddrs')
-end
+require 'system/rb_getifaddrs'
 
 module System
   def self.get_ifaddrs
