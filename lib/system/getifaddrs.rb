@@ -1,5 +1,5 @@
 require 'ipaddr'
-require 'system/rb_getifaddrs'
+require 'rb_getifaddrs'
 
 module System
   def self.get_ifaddrs

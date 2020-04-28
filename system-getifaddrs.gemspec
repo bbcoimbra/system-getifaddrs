@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/bbcoimbra/system-getifaddrs}
   s.summary = %q{This lib is a wrapper for get_ifaddrs C routine}
   s.description = %q{This lib is a wrapper for get_ifaddrs C routine. The original routine returns a linked list that contains avaliable inet interfaces. This lib walks on list and return an hash that contains the interface names and sub-hashes with respectives ip addresses and netmasks.}
-  s.add_development_dependency(%q<rspec>, "~> 1.3")
+  s.add_development_dependency(%q<rspec>, "~> 3.9")
   s.add_development_dependency(%q<rake-compiler>, [">= 0"])
   s.extensions    = `git ls-files -- ext/*`.split("\n").select{|f| f =~ /extconf/}
   s.files         = `git ls-files`.split("\n")

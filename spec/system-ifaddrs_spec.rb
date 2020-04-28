@@ -44,16 +44,16 @@ describe System do
         end
 
         it 'should return a hash' do
-            @get_ifaddrs_interfaces.should be_kind_of(Hash)
+            expect(@get_ifaddrs_interfaces).to be_kind_of(Hash)
         end
 
         it 'should have same number of interfaces than system' do
-            @get_ifaddrs_interfaces.keys.size.should have_at_least(@ifconfig_interfaces.keys.size).elements
+            expect(@get_ifaddrs_interfaces.keys.size).to be >= @ifconfig_interfaces.keys.size
         end
 
         it 'should have same interfaces than system' do
             @ifconfig_interfaces.keys.each do |k|
-                @get_ifaddrs_interfaces.should include(k)
+              expect(@get_ifaddrs_interfaces).to include(k)
             end
         end
     end
@@ -65,11 +65,11 @@ describe System do
       end
 
       it 'should return an array' do
-        @get_ifaddrs_interfaces.should be_kind_of(Array)
+        expect(@get_ifaddrs_interfaces).to be_kind_of(Array)
       end
 
       it 'should have same number of interfaces than system' do
-          @get_ifaddrs_interfaces.size.should have_at_least(@ifconfig_interfaces.keys.size).elements
+          expect(@get_ifaddrs_interfaces.size).to be >= @ifconfig_interfaces.keys.size
       end
     end
 end
